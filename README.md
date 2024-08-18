@@ -58,3 +58,53 @@ Configure the container runtime by using the nvidia-ctk command:
 ```
 sudo nvidia-ctk config --set nvidia-container-cli.no-cgroups --in-place
 ```
+
+
+
+## Download the docker container
+
+```
+docker pull nvcr.io/nvidia/deepstream:6.4-gc-triton-devel
+```
+
+## make shared folder
+
+My folder will be:
+```
+mkdir /media/data/shared_with_docker
+```
+
+## Downlaod the samples:
+```
+cd /media/data/shared_with_docker
+git clone https://github.com/NVIDIA-AI-IOT/deepstream_python_apps.git
+cd deepstream_python_apps
+
+```
+
+## Run the docker
+```
+# Step to run the docker
+export DISPLAY=:0 &&  xhost +  && xhost local:root && docker run -it  --mount src=/media/data/shared_with_docker,target=/shared_with_docker/,type=bind --privileged --rm --net=host --gpus all -e DISPLAY=$DISPLAY --device /dev/snd -v /tmp/.X11-unix/:/tmp/.X11-unix nvcr.io/nvidia/deepstream:6.4-gc-triton-devel
+
+```
+
+
+## Inside the docker 
+```
+cd /opt/nvidia/deepstream/deepstream-6.4
+chmod +x user_deepstream_python_apps_install.sh
+./user_deepstream_python_apps_install.sh --build-bindings -r master
+pip3 install cuda-python
+wget https://github.com/NVIDIA-AI-IOT/deepstream_python_apps/releases/download/v1.1.11/pyds-1.1.11-py3-none-linux_x86_64.whl
+pip3 install ./pyds-1.1.*.whl
+
+```
+
+
+## Run the example (Inside the docker)
+```
+cd /shared_with_docker/deepstream_python_apps/apps/deepstream-test1/
+python3 deepstream_test_1.py /opt/nvidia/deepstream/deepstream/samples/streams/sample_720p.h264
+```
+
