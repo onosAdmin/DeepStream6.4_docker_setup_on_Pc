@@ -99,6 +99,9 @@ pip3 install cuda-python
 wget https://github.com/NVIDIA-AI-IOT/deepstream_python_apps/releases/download/v1.1.11/pyds-1.1.11-py3-none-linux_x86_64.whl
 pip3 install ./pyds-1.1.*.whl
 
+
+/opt/nvidia/deepstream/deepstream/user_additional_install.sh
+
 ```
 
 
