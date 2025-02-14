@@ -74,7 +74,7 @@ My folder will be:
 mkdir /media/data/shared_with_docker
 ```
 
-## Downlaod the samples:
+## Download the samples:
 ```
 cd /media/data/shared_with_docker
 git clone https://github.com/NVIDIA-AI-IOT/deepstream_python_apps.git
